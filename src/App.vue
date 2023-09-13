@@ -62,6 +62,41 @@
     <section class="max-w-5xl mx-auto mt-10 h-[50vh]">
       <Line :datasets="datasets" />
     </section>
+
+    <section class="mt-10 text-lg flex flex-col gap-5">
+      <div class="flex items-center">
+        <span class="whitespace-nowrap w-10 h-4 bg-red-200 border border-red-400"></span>
+        <p class="ml-3">
+          <b>Recommendation and delivery difference:</b> shows the difference between AI based
+          recommendation and delivery qty
+        </p>
+      </div>
+
+      <div class="flex items-center">
+        <span class="whitespace-nowrap w-10 h-4 bg-blue-200 border border-blue-400"></span>
+        <p class="ml-3"><b>Actual delivery qty:</b> shows the actual delivery qty</p>
+      </div>
+
+      <div class="flex items-center">
+        <span
+          class="whitespace-nowrap w-5 h-5 rounded-full bg-red-200 border border-red-400"
+        ></span>
+        <p class="ml-7">
+          <b>Big red marker:</b> mark where original order recommendations were improved
+        </p>
+      </div>
+
+      <div class="flex items-center">
+        <span
+          class="whitespace-nowrap w-3 h-3 rounded-full bg-red-200 border border-red-400"
+        ></span>
+
+        <p class="ml-8">
+          <b>Small red marker:</b> mark where original order recommendations were deteriorated or no
+          change
+        </p>
+      </div>
+    </section>
   </main>
 </template>
 
@@ -169,8 +204,10 @@ const datasets = computed((): ChartDataset[] => {
 
     if (matchingSales) {
       const actualDemand = matchingSales.demand_qty
+      // improved = recommendation.recommendation - matchingDelivery.delivery_qty > actualDemand
       improved =
-        matchingDelivery.delivery_qty - actualDemand < recommendation.recommendation - actualDemand
+        Math.abs(matchingDelivery.delivery_qty - actualDemand) <
+        Math.abs(recommendation.recommendation - actualDemand)
     }
 
     adjustments.push({
@@ -187,21 +224,21 @@ const datasets = computed((): ChartDataset[] => {
   for (const sale of sales.value) {
     salesDataset.push({
       x: sale.target_date,
-      y: sale.demand_qty - sale.sales_qty,
+      y: sale.demand_qty,
       type: 'adjustments'
     })
   }
 
   return [
     {
-      label: 'AI Recommendation and Adjustments difference',
+      label: 'Recommendation and delivery difference',
       data: sortDatasetsByTargetDate(adjustments),
       backgroundColor: 'rgba(248, 121, 121, 0.5)',
       borderColor: 'rgba(248, 121, 121, 1)',
       borderWidth: 1
     },
     {
-      label: 'Actual delivery quantity',
+      label: 'Actual delivery qty',
       data: sortDatasetsByTargetDate(salesDataset),
       backgroundColor: 'rgba(29, 75, 114, 0.5)',
       borderColor: 'rgba(29, 75, 114, 1)',
@@ -215,12 +252,12 @@ onMounted(() => {})
 onBeforeMount(async () => {
   await fetchAnalysisData()
 
-    // select the first store before component is mounted
+  // select the first store before component is mounted
   if (storeData.value.length > 0) {
     selectedStore.value = storeData.value[0].id_store
   }
 
-    // select the first product  before component is mounted
+  // select the first product  before component is mounted
   if (productData.value.length > 0) {
     selectedProduct.value = productData.value[0].id_product
   }

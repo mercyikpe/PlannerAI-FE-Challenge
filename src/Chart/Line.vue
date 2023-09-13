@@ -51,10 +51,10 @@ const chartOptions = reactive({
     point: {
       radius: (context) => {
         if (!context.raw || !context.raw.type) {
-          return 2
+          return 4
         }
 
-        return context.raw.improved ? 10 : 2
+        return context.raw.improved ? 10 : 4
       }
     }
   },
@@ -66,6 +66,41 @@ const chartOptions = reactive({
         displayFormats: {
           quarter: 'MMM YYYY'
         }
+      }
+    }
+  },
+  plugins: {
+    tooltip: {
+      enabled: true,
+      filter: false,
+        callbacks: {
+            label: (context) => {
+                const label = context.dataset.label || '';
+                const value = context.parsed.y;
+                const improved = context.raw.improved;
+
+                let improvementText: string = '';
+                if (value !== 0) {
+                    improvementText = improved ? 'Improved' : 'Deteriorated';
+                }
+                // Apply custom formatting only for the "Recommendation and delivery difference" dataset
+                if (label === 'Recommendation and delivery difference') {
+                    return `${label}: ${value} ${improvementText}`;
+                } else {
+                    // For other datasets, return plain text with the value
+                    return `${label}: ${value}`;
+                }
+            }
+        },
+
+      backgroundColor: (context) => {
+        const value = context.raw?.y
+        if (value !== undefined && value !== 0) {
+          const improved = context.raw?.data?.improved || false
+          // return improved ? 'rgba(0, 255, 0, 0.5)' : 'rgba(255, 0, 0, 0.5)'
+          return improved ? 'rgba(0, 255, 0, 1)' : 'rgba(255, 0, 0, 1)'
+        }
+        return ''
       }
     }
   }
