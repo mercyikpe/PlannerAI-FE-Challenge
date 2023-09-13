@@ -14,6 +14,10 @@ This project is built with:
 ### deployed link: [https://planner-ai-fe-challenge.vercel.app](https://planner-ai-fe-challenge.vercel.app)
 
 
+### Estimated time spent: 
+5 hours
+
+<br/>
 
 ## Limitations
 
