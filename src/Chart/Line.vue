@@ -17,7 +17,8 @@ import {
 } from 'chart.js'
 
 import 'chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm'
-import { computed, PropType, reactive } from 'vue'
+import { computed, reactive } from 'vue'
+import type { PropType } from 'vue'
 import type { ChartDataset } from '@/Chart/types'
 
 ChartJS.register(
@@ -38,18 +39,18 @@ const props = defineProps({
   }
 })
 
-const chartData = computed(() => {
+const chartData = computed((): any => {
   return {
     datasets: props.datasets
   }
-})
+});
 
 const chartOptions = reactive({
   responsive: true,
   maintainAspectRatio: false,
   elements: {
     point: {
-      radius: (context) => {
+      radius: (context: any) => {
         if (!context.raw || !context.raw.type) {
           return 4
         }
@@ -74,7 +75,7 @@ const chartOptions = reactive({
       enabled: true,
       filter: false,
         callbacks: {
-            label: (context) => {
+            label: (context: any) => {
                 const label = context.dataset.label || '';
                 const value = context.parsed.y;
                 const improved = context.raw.improved;
@@ -93,7 +94,7 @@ const chartOptions = reactive({
             }
         },
 
-      backgroundColor: (context) => {
+      backgroundColor: (context: any) => {
         const value = context.raw?.y
         if (value !== undefined && value !== 0) {
           const improved = context.raw?.data?.improved || false

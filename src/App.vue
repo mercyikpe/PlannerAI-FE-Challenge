@@ -105,13 +105,16 @@ import Line from '@/Chart/Line.vue'
 import dayjs from 'dayjs'
 
 import { computed, onBeforeMount, onMounted, ref } from 'vue'
-import api, { Delivery, Order, Product, Recommendation, Store } from '@/api'
+import api from '@/api'
+import type { Delivery, Order, Product, Recommendation, Store } from '@/api'
+
 import {
   createDateRange,
   filterByStoreProductDate,
   sortDatasetsByTargetDate,
-  StoreProductDateFilter
+
 } from '@/util'
+import type {StoreProductDateFilter} from '@/util'
 import type { ChartDataset } from '@/Chart/types'
 
 const selectedStore = ref<number | null>(null)
