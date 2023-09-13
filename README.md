@@ -11,7 +11,9 @@ This project is built with:
 - vue-chartjs (a wrapper for chartjs in vue.js with typescript support)
 - Prettier (for code formatting)
 
-## live url: 
+### deployed link: [https://planner-ai-fe-challenge.vercel.app](https://planner-ai-fe-challenge.vercel.app)
+
+
 
 ## Limitations
 
