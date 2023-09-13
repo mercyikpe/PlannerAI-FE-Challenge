@@ -21,8 +21,6 @@ The implementation of the filter by date does not allow a flexible date range se
 
 I assume that the actual delivery quantity is the data in the `sales.json` file
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
 <br/>
 <br/>
 
