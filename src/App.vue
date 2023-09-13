@@ -1,6 +1,6 @@
 <template>
   <header class="my-5 w-11/12">
-    <h1 class="text-2xl font-bold text-center">
+    <h1 class="text-2xl font-bold text-center pt-5">
       AI-based ordering recommendation <span class="block">vs</span> Actual Demand quantity
     </h1>
   </header>
@@ -63,7 +63,7 @@
       <Line :datasets="datasets" />
     </section>
 
-    <section class="mt-10 text-lg flex flex-col gap-5">
+    <section class="my-10 text-lg flex flex-col gap-5 max-w-3xl mx-auto">
       <div class="flex items-center">
         <span class="whitespace-nowrap w-10 h-4 bg-red-200 border border-red-400"></span>
         <p class="ml-3">
