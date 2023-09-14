@@ -19,6 +19,12 @@ This project is built with:
 
 <br/>
 
+## My proposed solution
+I matched the store and product info in the recommendation and delivery dataset in order to get the recommendation and the delivery_qty, then I subtracted the values to find the difference. The difference is the adjustment made by the client. With the adjustment value, I mapped the graph to show the adjustment points. 
+Then, I mapped the graph with the actual delivery which is in the sales data set, then I compared the adjustment and the actual delivery. This comparison showed when the adjustment improved or deteriorated actual delivery. to find improved or deteriorated values, I checked the adjustment values to see if the adjustment was closer to the actual delivery or if the recommendation was closer to the actual delivery. 
+
+<br/>
+
 ## Limitations
 
 The implementation of the filter by date does not allow a flexible date range selection. A better approach would be to use a date picker so that users can freely select dates.
